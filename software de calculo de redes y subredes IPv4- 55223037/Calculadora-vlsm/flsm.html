@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora FLSM</title>
+      <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <header>
+    <h1>Calculadora de Subredes - FLSM</h1>
+  </header>
+
+  <div class="container">
+    <label>Dirección IP:</label>
+    <input type="text" id="ip" placeholder="Ej: 192.168.1.0">
+
+    <label>Prefijo de red (/CIDR):</label>
+    <input type="number" id="prefix" min="1" max="30" placeholder="Ej: 24">
+
+    <label>Número de subredes:</label>
+    <input type="number" id="subnets" min="1" max="1024" placeholder="Ej: 2">
+
+    <button onclick="calcularFLSM()">Calcular</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function ipToInt(ip) {
+      return ip.split('.').reduce((acc, oct) => (acc << 8) + parseInt(oct), 0) >>> 0;
+    }
+
+    function intToIp(int) {
+      return [(int >>> 24) & 255, (int >>> 16) & 255, (int >>> 8) & 255, int & 255].join(".");
+    }
+
+    function calcularFLSM() {
+      let ip = document.getElementById("ip").value.trim();
+      let prefix = parseInt(document.getElementById("prefix").value);
+      let subnets = parseInt(document.getElementById("subnets").value);
+
+      if (!ip || isNaN(prefix) || isNaN(subnets)) {
+        alert("Por favor complete todos los campos.");
+        return;
+      }
+
+      let baseIp = ipToInt(ip);
+      let newPrefix = prefix + Math.ceil(Math.log2(subnets));
+      if (newPrefix > 30) {
+        alert("No es posible crear tantas subredes con este prefijo.");
+        return;
+      }
+
+      let blockSize = Math.pow(2, 32 - newPrefix);
+      let mask = 0xFFFFFFFF << (32 - newPrefix);
+
+      let html = `
+        <h2>Resultados</h2>
+        <table>
+          <tr>
+            <th>Subred</th>
+            <th>Nº de Hosts</th>
+            <th>IP de red</th>
+            <th>Máscara</th>
+            <th>Primer Host</th>
+            <th>Último Host</th>
+            <th>Broadcast</th>
+          </tr>
+      `;
+
+      for (let i = 0; i < subnets; i++) {
+        let netAddr = (baseIp + i * blockSize) >>> 0;
+        let firstHost = netAddr + 1;
+        let lastHost = netAddr + blockSize - 2;
+        let broadcast = netAddr + blockSize - 1;
+
+        html += `
+          <tr>
+            <td>Subred ${i + 1}</td>
+            <td>${blockSize - 2}</td>
+            <td>${intToIp(netAddr)}/${newPrefix}</td>
+            <td>${intToIp(mask)}</td>
+            <td>${intToIp(firstHost)}</td>
+            <td>${intToIp(lastHost)}</td>
+            <td>${intToIp(broadcast)}</td>
+          </tr>
+        `;
+      }
+
+      html += "</table>";
+      document.getElementById("resultado").innerHTML = html;
+    }
+  </script>
+</body>
+</html>

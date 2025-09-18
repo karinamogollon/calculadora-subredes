@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora IP & Subredes</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Header con botón menú -->
+  <header>
+    <span class="menu-btn" onclick="toggleMenu()">☰</span>
+    <h1>Calculadora IP</h1>
+  </header>
+<!-- Barra de navegación -->
+<nav class="top-nav">
+  <ul>
+    <li><a href="index.html" class="active">Inicio</a></li>
+    <li><a href="ipv4.html">Calculadora IP</a></li>
+    <li><a href="flsm.html">FLSM</a></li>
+    <li><a href="vlsm.html">VLSM</a></li>
+  </ul>
+</nav>
+
+  <!-- Menú lateral -->
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <h2>🌸 Calculadora</h2>
+      <p>by Wendy</p>
+    </div>
+    <ul>
+      <li><a href="index.html" class="active">Inicio</a></li>
+      <li><a href="ipv4.html">Calculadora IP</a></li>
+      <li><a href="flsm.html">Calculadora FLSM</a></li>
+      <li><a href="vlsm.html">Calculadora VLSM</a></li>
+    </ul>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main>
+    <section class="intro">
+      <h2>Calculadora IPv4 & Subredes</h2>
+      <p>
+        El <b>direccionamiento IP</b> junto con el <b>Subnetting</b> son una de las tareas más comunes
+        que realizan los administradores de red. Tanto el direccionamiento como el subnetting pueden
+        resultar tediosos en proyectos grandes y complejos, por eso aquí encontrarás
+        herramientas sencillas y visuales 🌸.
+      </p>
+      <p>
+        Estas calculadoras incluyen una explicación paso a paso de cada operación que se realice, 
+        ideales tanto para estudiantes como para administradores de red.
+      </p>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/633/633652.png" alt="IPv4">
+        <h3>Calculadora IPv4</h3>
+        <p>Obtén toda la información de una dirección IPv4.</p>
+        <a href="ipv4.html" class="btn">Ir a la calculadora</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="FLSM">
+        <h3>Calculadora FLSM</h3>
+        <p>Subredes FLSM paso a paso y descarga en PDF.</p>
+        <a href="flsm.html" class="btn">Ir a la calculadora</a>
+      </div>
+
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3064/3064232.png" alt="VLSM">
+        <h3>Calculadora VLSM</h3>
+        <p>Subredes VLSM paso a paso y descarga en PDF.</p>
+        <a href="vlsm.html" class="btn">Ir a la calculadora</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
